@@ -1,37 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n;
-
-void input(){
-    cin >> n;
-}
-
-void print(int a[], int n){
-    for(int i = 0; i < n; i++){
-        cout << a[i];
-    }
-    cout << endl;
-}
-
-void backtracking(int id, int n, int a[]){
+void backtracking(int id, int a[], int n, bool existOne){
     if(id == n){
-        print(a, n);
+        for(int i = 0; i < n; i++){
+            cout << a[i];
+        }
+        cout << endl;
         return;
     }
 
     for(int i = 0; i <= 1; i++){
         a[id] = i;
-        backtracking(id + 1, n, a);
+
+        //exist 11
+        if(existOne == true && i == 1){
+            return;
+        }
+
+        //don't exist 11
+        if(i == 1){
+            backtracking(id + 1, a, n, true);
+        }
+
+        else{
+            backtracking(id + 1, a, n, false);
+        }
     }
 }
 
 int main(){
-    
-    input();
+    int n;
+    cin >> n;
     int a[n];
-    backtracking(0, n, a);
+    backtracking(0, a, n, false);
 
     return 0;
-
 }
